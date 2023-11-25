@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+bool test(char * s, int len) {
+ int ctr = 0, x = 0, y = 0, z = 0;
+ char * string2;
+ string2 = (char * ) malloc(len);
+ while ( * s != 0) {
+ if ( * s == '(') {
+ x++;
+ string2[++ctr] = 1;
+ }
+ if ( * s == '[') {
+ y++;
+ string2[++ctr] = 2;
+ }
+ if ( * s == '{') {
+ z++;
+ string2[++ctr] = 3;
+ }
+ if ( * s == ')') {
+ if (string2[ctr] == 1) {
+ x--;
+ ctr--;
+ } else return false;
+ }
+if ( * s == ']') {
+ if (string2[ctr] == 2) {
+ y--;
+ ctr--;
+ } else return false;
+ }
+ if ( * s == '}') {
+ if (string2[ctr] == 3) {
+ z--;
+ ctr--;
+ } else return false;
+ }
+ s++;
+ }
+ if (x > 0 || y > 0 || z > 0)
+ return false;
+ return true;
+}
+int main() {
+ char string1[80];
+ int n, i, x;
+ printf("Input a string: ");
+ scanf("%s", string1);
+ n = strlen(string1);
+ printf("Check bracket in the said string is valid or not? 
+%d", test(string1, n));
+}
